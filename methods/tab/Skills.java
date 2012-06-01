@@ -88,11 +88,17 @@ public class Skills {
 		final Client client = Context.client();
 		return client.getSkillExperiences();
 	}
-
+	
 	public static int[] getMaxExperiences() {
 		final Client client = Context.client();
 		return client.getSkillExperienceMaxes();
 	}
+	
+	public static int[] getExperienceDiffence(final int beginlvl, final int endlevel) {
+		final int ExperienceDiffence = abs(XP_TABLE[beginlvl] - XP_TABLE[endlevel]);
+		return ExperienceDiffence;
+	}
+
 
 	public static int getLevelAt(final int exp) {
 		for (int i = Skills.XP_TABLE.length - 1; i > 0; i--) {
