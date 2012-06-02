@@ -140,6 +140,15 @@ public class Inventory {
 		}
 		return count;
 	}
+	
+	public static boolean getFull() {
+		if(getItems().length == 28) {
+			return true;
+		} else{
+			return false;
+		}		
+	}
+	
 
 	public static boolean selectItem(final int itemId) {
 		final Item item = getItem(itemId);
