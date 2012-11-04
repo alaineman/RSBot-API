@@ -306,6 +306,37 @@ public class Bank {
 		return Inventory.getCount(true) != invCount;
 	}
 
+	/** 
+	 * Deposit all items except the ones you want to keep.
+	 * automatically return <tt>true</tt> without clicking the button if the players inventory is already empty.
+	 * 
+	 * @return <tt>true</tt> if inventory only has the items you want to keep; otherwise <tt>false</tt>.
+	 **/
+	public static boolean depositAllExcept(final int... keepItems) {
+		if (Bank.isOpen() || DepositBox.isOpen()) {
+			if (Inventory.getCount() == 0) {
+			return true;
+			}
+			for (Item i : Inventory.getItems()) {
+				int currentItemId = i.getId();
+				if (!keepItems.equals(currentItemId)) {
+					Bank.deposit(currentItemId,
+							Inventory.getCount(currentItemId));
+				}
+			}
+			int keepCount = 0;
+			for(int i : keepItems){
+				keepCount += Inventory.getCount(i);
+			}
+			if( (Inventory.getCount() - keepCount) > 0){
+				return false;
+			} 
+			return true;
+		} else {
+		return false;
+		}
+	}
+
 	/**
 	 * Deposits the players inventory using the provided "deposit items" button. For efficiency, this method will
 	 * automatically return <tt>true</tt> without clicking the button if the players inventory is already empty.
